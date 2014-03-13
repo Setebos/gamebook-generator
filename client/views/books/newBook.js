@@ -9,10 +9,7 @@ Template.newBook.events({
 			description: $description.val()
 		}
 
-		console.log('plop');
-
 		Meteor.call('createBook', book, function(error, id) {
-
 			if(error) {
 				// throwError(error.reason);
 			} else {

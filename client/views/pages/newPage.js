@@ -1,33 +1,31 @@
-Session.set('branches', null);
-
-Template.newPage.helpers({
-	test: function() {
-		return Session.get('branches');
-	}
-})
-
 Template.newPage.events({
-	// 'click #validate-branch': function(e) {
-	// 	e.preventDefault();
-	// 	if($('#branch').val() > 0 && $('#branch').val() < 6) {
-	// 		Session.set('branches', $('#branch').val());
-	// 	}
-	// }
 	'click #new-branch': function(e) {
 		e.preventDefault();
-		$('.branch').first().clone().appendTo('#branches');
+		var clone = $('.branch').first().clone();
+		clone.find('input').val('');
+		clone.appendTo('#branches');
 	},
 	'submit form': function(e, template) {
 		e.preventDefault();
-		var branches;
+		var branches = new Array();
 		var $content = $(e.target).find('[name=content]');
+
 		$(e.target).find('[name=title]').each(function() {
-			branches[] = this.val();
+			branches.push(this.value);
 		});
+
 		var page = {
 			branches: branches,
 			bookId: template.data._id,
-			title: intro
+			title: "Introduction"
 		}
+
+		Meteor.call('createPage', page, function(error, id) {
+			if(error) {
+				// TODO gestion erreur
+			} else {
+				Router.go('listPages', {_id: template.data._id});
+			}
+		})
 	}
 })
