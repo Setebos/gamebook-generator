@@ -1,0 +1,16 @@
+<template name="homepage">
+	<div class="container">
+		<section>
+			<h2>Mes livres</h2>
+			<ul>
+				{{#each books}}
+					{{> booksList}}
+				{{/each}}
+			</ul>
+		</section>
+		<section>
+			<h2>Nouveau livre</h2>
+				<a href="{{pathFor 'newBook'}}" class="btn btn-info">Créer</a>
+		</section>
+	</div>
+</template>
