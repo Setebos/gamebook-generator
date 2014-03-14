@@ -1,6 +1,8 @@
 Template.listPages.helpers({
-	pages: function() {
-		console.log(this._id);
-		return Pages.find({bookId: this._id});
+	pagesDone: function() {
+		return Pages.find({bookId: this._id, content: {$ne: null}});
+	},
+	pagesToDo: function() {
+		return Pages.find({bookId: this._id, content: null});
 	}
 })

@@ -17,6 +17,7 @@ Template.newPage.events({
 		var page = {
 			branches: branches,
 			bookId: template.data._id,
+			content: $content.val(),
 			title: "Introduction"
 		}
 
