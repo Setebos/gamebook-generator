@@ -13,7 +13,20 @@ Template.newBook.events({
 			if(error) {
 				// throwError(error.reason);
 			} else {
-				Router.go('newPage', {_id: id});
+				var page = {
+					branches: null,
+					bookId: id,
+					content: null,
+					pageTitle: "Introduction"
+				};
+				var pageId = null;
+				Meteor.call('createPage', page, function(error, pageId) {
+					if(error) {
+						// TODO gestion erreur
+					} else {
+						Router.go('newPage', {_id: id, pageId: pageId});
+					}
+				});
 			}
 		})
 	}

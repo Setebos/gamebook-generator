@@ -1,3 +1,10 @@
+Template.newPage.helpers({
+	page: function() {
+		console.log(Pages.findOne());
+		return Pages.findOne();
+	}
+})
+
 Template.newPage.events({
 	'click #new-branch': function(e) {
 		e.preventDefault();
@@ -14,19 +21,30 @@ Template.newPage.events({
 			branches.push(this.value);
 		});
 
+		page = Pages.findOne();
+
 		var page = {
+			_id: page._id,
 			branches: branches,
 			bookId: template.data._id,
 			content: $content.val(),
-			title: "Introduction"
 		}
 
-		Meteor.call('createPage', page, function(error, id) {
+		Meteor.call('updatePage', page, function(error, id) {
 			if(error) {
 				// TODO gestion erreur
 			} else {
+				_.each(branches, function(branch) {
+					var newPage = {
+						branches: null,
+						bookId: template.data._id,
+						content: null,
+						pageTitle: branch
+					}
+					Meteor.call('createPage', newPage);
+				});
 				Router.go('listPages', {_id: template.data._id});
 			}
-		})
+		});
 	}
 })

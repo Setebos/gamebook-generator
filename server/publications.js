@@ -9,3 +9,7 @@ Meteor.publish('singleBook', function(id) {
 Meteor.publish('pages', function(id) {
 	return Pages.find({bookId: id});
 });
+
+Meteor.publish('singlePage', function(id) {
+	return Pages.find({_id: id});
+});
