@@ -17,7 +17,16 @@ Meteor.methods({
 			bookId: page.bookId
 		}
 
-		var pageId = Pages.insert(newPage);
+		var pageExists = false;
+		Pages.find().forEach(function (page) {
+			if(page.pageTitle == newPage.pageTitle) {
+				pageExists = true;
+			}
+		});
+
+		if(!pageExists) {
+			var pageId = Pages.insert(newPage);
+		}
 
 		return pageId;
 	},
@@ -27,8 +36,6 @@ Meteor.methods({
 		if(!user) {
 			throw new Meteor.Error(401, "Vous devez être connecté pour créer un livre");
 		}
-
-		console.log(page._id);
 
 		var pageId = Pages.update({_id: page._id}, {$set: {branches: page.branches, content: page.content}});
 
