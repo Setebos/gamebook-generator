@@ -29,7 +29,7 @@
 					<div class="form-group branch">
 						<label for="title" class="col-sm-2 control-label">Titre</label>
 						<div class="col-sm-5">
-							<input type="text" class="form-control" name="title" placeholder="Titre de l'embranchement">
+							<input type="text" class="form-control" name="title" placeholder="Titre de l'embranchement" value="">
 						</div>
 					</div>
 				{{/if}}
@@ -37,9 +37,10 @@
 			<div class="form-group">			
 				<button id="new-branch"class="col-sm-offset-6 btn btn-success">Nouvel embranchement</button>
 			</div>
+			
 			<div class="form-group">
-				<button type="submit" class="col-sm-offset-6 btn btn-primary">Créer</button>
-			</div>
+				<button type="submit" class="col-sm-offset-6 btn btn-primary">{{#if page.content}}Modifier{{else}}Créer{{/if}}</button>
+			</div>			
 		</form>
 	</div>
 </template>

@@ -19,11 +19,12 @@ Template.newBook.events({
 					content: null,
 					pageTitle: "Introduction"
 				};
-				var pageId = null;
+
 				Meteor.call('createPage', page, function(error, pageId) {
 					if(error) {
 						// TODO gestion erreur
 					} else {
+						console.log(pageId);
 						Router.go('newPage', {_id: id, pageId: pageId});
 					}
 				});

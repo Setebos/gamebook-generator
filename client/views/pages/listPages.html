@@ -4,7 +4,7 @@
 		<div class="col-md-6">
 			<h3>Pages faites</h3>
 			{{#each pagesDone}}
-				<span class="label label-success"><a class="edit-page"href="{{pathFor 'newPage'}}">{{pageTitle}}</a></span>
+				<span class="label label-success"><a class="edit-page"href="#">{{pageTitle}}</a></span>
 				<ul>
 					{{#each branches}}
 						<li>{{.}}</li>
@@ -15,7 +15,7 @@
 		<div class="col-md-6">
 			<h3>Pages pas faites</h3>
 			{{#each pagesToDo}}
-				<span class="label label-warning">{{pageTitle}}</span>
+				<span class="label label-warning"><a class="edit-page"href="#">{{pageTitle}}</a></span>
 				<ul>
 					{{#each branches}}
 						<li>{{.}}</li>

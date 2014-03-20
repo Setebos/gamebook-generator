@@ -18,8 +18,8 @@ Meteor.methods({
 		}
 
 		var pageExists = false;
-		Pages.find().forEach(function (page) {
-			if(page.pageTitle == newPage.pageTitle) {
+		Pages.find({bookId: page.bookId}).forEach(function (existingPage) {
+			if(existingPage.pageTitle == newPage.pageTitle) {
 				pageExists = true;
 			}
 		});
