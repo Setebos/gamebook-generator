@@ -1,6 +1,5 @@
 Template.newPage.helpers({
 	page: function() {
-		console.log(Pages.findOne());
 		return Pages.findOne();
 	}
 })
@@ -25,7 +24,7 @@ Template.newPage.events({
 
 		var page = {
 			_id: page._id,
-			branches: branches,
+			// branches: branches,
 			bookId: template.data._id,
 			content: $content.val(),
 		}
@@ -48,3 +47,12 @@ Template.newPage.events({
 		});
 	}
 })
+
+Template.newPage.rendered = function() {
+	console.log(Pages.find().fetch());
+	$('#magicsuggest').magicSuggest({
+		// data: Pages.find().fetch(),
+		data: [{id: 1, pageTitle:"test"}],
+		displayField: pageTitle
+	});
+}

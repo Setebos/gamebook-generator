@@ -1,6 +1,7 @@
 Pages = new Meteor.Collection('pages');
 
 Meteor.methods({
+
 	createPage: function(page) {
 		var user = Meteor.user();
 
@@ -14,27 +15,23 @@ Meteor.methods({
 			pageTitle: page.pageTitle,
 			content: page.content,
 			branches: page.branches,
-			bookId: page.bookId
+			bookId: page.bookId,
+			isFirst: page.isFirst
 		}
 
-		var pageExists = false;
-		Pages.find({bookId: page.bookId}).forEach(function (existingPage) {
-			if(existingPage.pageTitle == newPage.pageTitle) {
-				pageExists = true;
-			}
+		var pageId = Pages.insert(newPage);
+		Books.update(page.bookId, {
+			$addToSet: {pages: pageId}
 		});
-
-		if(!pageExists) {
-			var pageId = Pages.insert(newPage);
-		}
 
 		return pageId;
 	},
+
 	updatePage: function(page) {
 		var user = Meteor.user();
 
 		if(!user) {
-			throw new Meteor.Error(401, "Vous devez être connecté pour créer un livre");
+			throw new Meteor.Error(401, "Vous devez être connecté pour mettre à jour un livre");
 		}
 
 		var pageId = Pages.update({_id: page._id}, {$set: {branches: page.branches, content: page.content}});

@@ -11,11 +11,11 @@
 			<div class="form-group">
 				<label for="content" class="col-sm-2 control-label">Texte</label>
 				<div class="col-sm-5">
-					<textarea class="form-control" rows="20" id="content" name="content"placeholder="Texte de la page">{{#if page.content}}{{page.content}}{{/if}}</textarea>
+					<textarea class="form-control" rows="20" id="content" name="content" placeholder="Texte de la page">{{#if page.content}}{{page.content}}{{/if}}</textarea>
 				</div>
 			</div>
 			<div id="branches">
-				<h3 class="col-sm-offset-2">Embranchements</h3>
+				<!-- <h3 class="col-sm-offset-2">Embranchements</h3>
 				{{#if page.branches}}
 					{{#each page.branches}}
 						<div class="form-group branch">
@@ -32,15 +32,21 @@
 							<input type="text" class="form-control" name="title" placeholder="Titre de l'embranchement" value="">
 						</div>
 					</div>
-				{{/if}}
+				{{/if}} -->
+				<div class="form-group branch">
+					<label for="branches" class="col-sm-2 control-label">Embranchements</label>
+					<div class="col-sm-5">
+						<input id="magicsuggest">
+					</div>
+				</div>
 			</div>
-			<div class="form-group">			
-				<button id="new-branch"class="col-sm-offset-6 btn btn-success">Nouvel embranchement</button>
-			</div>
+			<!-- <div class="form-group">			
+				<button id="new-branch" class="col-sm-offset-6 btn btn-success">Nouvel embranchement</button>
+			</div> -->	
 			
 			<div class="form-group">
 				<button type="submit" class="col-sm-offset-6 btn btn-primary">{{#if page.content}}Modifier{{else}}Créer{{/if}}</button>
-			</div>			
+			</div>	 	
 		</form>
 	</div>
 </template>

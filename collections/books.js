@@ -16,7 +16,8 @@ Meteor.methods({
 			userId: user._id,
 			author: user.username,
 			title: book.title,
-			description: book.description
+			description: book.description,
+			pages: []
 		}
 
 		var bookId = Books.insert(newBook);
