@@ -49,10 +49,12 @@ Template.newPage.events({
 })
 
 Template.newPage.rendered = function() {
-	console.log(Pages.find().fetch());
-	$('#magicsuggest').magicSuggest({
-		// data: Pages.find().fetch(),
-		data: [{id: 1, pageTitle:"test"}],
-		displayField: pageTitle
-	});
+	if(Pages.find()) {
+		console.log(Pages.find().fetch());
+		$('#magicsuggest').magicSuggest({
+			data: Pages.find().fetch(),
+			displayField: "pageTitle",
+			useZebraStyle: true
+		});
+	}	
 }

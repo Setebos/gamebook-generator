@@ -49,4 +49,11 @@
 			</div>	 	
 		</form>
 	</div>
+	<script type="text/javascript">
+		$('#magicsuggest').magicSuggest({
+			data: Pages.find().fetch(),
+			displayField: "pageTitle",
+			useZebraStyle: true
+		});
+	</script>
 </template>
