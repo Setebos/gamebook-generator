@@ -35,7 +35,7 @@ Meteor.methods({
 		}
 
 		var pageId = Pages.update({_id: page._id}, {$set: {branches: page.branches, content: page.content}});
-
+	
 		return pageId;
 	}
 })

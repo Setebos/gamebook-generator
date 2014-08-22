@@ -1,8 +1,12 @@
-Template.newPage.helpers({
-	page: function() {
-		return Pages.findOne();
-	}
-})
+var msinput = null;
+
+// Template.newPage.helpers({
+// 	page: function() {
+// 		if(this.page) {
+// 			return this.page;
+// 		}
+// 	}
+// })
 
 Template.newPage.events({
 	'click #new-branch': function(e) {
@@ -13,19 +17,16 @@ Template.newPage.events({
 	},
 	'submit form': function(e, template) {
 		e.preventDefault();
-		var branches = new Array();
+		// _.each(msinput.getValue(), function(branch) {
+		// 	console.log(branch);
+		// });
+		var branches = msinput.getValue();
 		var $content = $(e.target).find('[name=content]');
-
-		$(e.target).find('[name=title]').each(function() {
-			branches.push(this.value);
-		});
-
-		page = Pages.findOne();
+		var pageTest = Pages.findOne(template.data.page._id);
 
 		var page = {
-			_id: page._id,
-			// branches: branches,
-			bookId: template.data._id,
+			_id: pageTest._id,
+			bookId: template.data.book._id,
 			content: $content.val(),
 		}
 
@@ -36,13 +37,14 @@ Template.newPage.events({
 				_.each(branches, function(branch) {
 					var newPage = {
 						branches: null,
-						bookId: template.data._id,
+						bookId: template.data.book._id,
 						content: null,
-						pageTitle: branch
+						pageTitle: branch,
+						isFirst: false
 					}
-					Meteor.call('createPage', newPage);
+					Meteor.call('createPage', newPage, template.data.page._id);
 				});
-				Router.go('listPages', {_id: template.data._id});
+				Router.go('listPages', {_id: template.data.book._id});
 			}
 		});
 	}
@@ -50,8 +52,7 @@ Template.newPage.events({
 
 Template.newPage.rendered = function() {
 	if(Pages.find()) {
-		console.log(Pages.find().fetch());
-		$('#magicsuggest').magicSuggest({
+		msinput = $('#magicsuggest').magicSuggest({
 			data: Pages.find().fetch(),
 			displayField: "pageTitle",
 			useZebraStyle: true
